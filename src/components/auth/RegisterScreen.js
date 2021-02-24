@@ -1,12 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import Swal from 'sweetalert2'
 
 
 import { Link } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import validator from 'validator';
 import { removeError, setError } from '../../actions/ui';
+import { registerWithEmailPassword } from '../../actions/auth';
 
 
 const initialForm = {
@@ -16,6 +18,8 @@ const initialForm = {
     password2:'',
 }
 export const RegisterScreen = () => {
+
+
 
 
     const dispatch = useDispatch()
@@ -34,7 +38,7 @@ export const RegisterScreen = () => {
 
         if(isFormValid()) 
         {
-            console.log('Formulario Correcto')
+            dispatch(registerWithEmailPassword(email, password, name))
         }
     }
 
@@ -42,13 +46,13 @@ export const RegisterScreen = () => {
 
         if( name.trim().length === 0)
         {
-            dispatch(setError('Name is required'))
+            dispatch(setError(Swal.fire('Error','Name is required')))
             return false;
         }else if(!validator.isEmail( email )) {
-            dispatch(setError('Email is not valid'))
+            dispatch(setError(Swal.fire('Error','Email is not valid')))
             return false;
         }else if( password !== password2 || password.length < 5){
-            dispatch(setError('Passwords are not the same'))
+            dispatch(setError(Swal.fire('Error','Passwords are not the same')))
             return false;
         }
 
@@ -62,14 +66,7 @@ export const RegisterScreen = () => {
 
             <form onSubmit={handleRegister}>
 
-            { 
-                msgError && 
-                (
-                    <div className="auth__alert-error">
-                    {msgError}
-                    </div>
-                )
-            }
+        
 
                 <input 
                     type="text"
