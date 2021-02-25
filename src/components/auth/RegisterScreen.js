@@ -24,8 +24,6 @@ export const RegisterScreen = () => {
 
     const dispatch = useDispatch()
 
-    const { msgError } = useSelector(state => state.ui)
-
    
 
     const [ formValues, handleInputChange] = useForm( initialForm );
