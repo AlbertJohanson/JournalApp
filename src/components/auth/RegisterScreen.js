@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Swal from 'sweetalert2'
 
@@ -62,7 +62,9 @@ export const RegisterScreen = () => {
         <>
             <h3 className="auth__title">Register</h3>
 
-            <form onSubmit={handleRegister}>
+            <form
+                  className="animate__animated animate__fadeIn animate__faster"
+                  onSubmit={handleRegister}>
 
         
 
